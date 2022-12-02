@@ -5,8 +5,8 @@
 (defn- get-metadata-from-photo
   ;; function that fetches all tags from mapped collections
   ;; , when given the file name
-  [filename]
-  (->> (io/file filename)
+  [photo-path]
+  (->> (io/file photo-path)
        ImageMetadataReader/readMetadata
        .getDirectories
        (map #(.getTags %)))
