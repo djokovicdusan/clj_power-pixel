@@ -22,7 +22,7 @@
 (defn safe-get-metadata-from-photo
   [photo-path]
   (try (get-metadata-from-photo photo-path)
-       (catch Exception _ {})))
+       (catch ImageProcessingException _ {})))
 
 (defn get-copyright-from-photo
   [photo-path]
