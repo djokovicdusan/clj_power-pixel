@@ -19,5 +19,15 @@
        (map get-data-from-tags)
        (into {}))
   )
+(defn safe-get-metadata-from-photo
+  [photo-path]
+  (try (get-metadata-from-photo photo-path)
+       (catch Exception _ {})))
+
+(defn get-copyright-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Copyright"))
+
+
 
 
