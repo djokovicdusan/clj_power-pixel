@@ -48,4 +48,8 @@
   [photo-path]
   (get (safe-get-metadata-from-photo photo-path) "Lens Model"))
 
+(defn get-file-type-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Detected File Type Name"))
+
 
