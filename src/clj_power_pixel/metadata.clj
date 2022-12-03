@@ -28,6 +28,16 @@
   [photo-path]
   (get (safe-get-metadata-from-photo photo-path) "Copyright"))
 
+(defn get-artist-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Artist"))
 
+(defn get-focal-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Focal Length"))
+
+(defn get-date-captured-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Date/Time Original"))
 
 
