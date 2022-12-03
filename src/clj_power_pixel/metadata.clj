@@ -4,7 +4,7 @@
   )
 (defn- get-data-from-tags
   [tags]
-  (map (fn [t] {(.getTagName t) (.getDescription t)}) tags))
+  (into {} (map (fn [t] {(.getTagName t) (.getDescription t)}) tags)))
 
 
 
@@ -17,7 +17,7 @@
        .getDirectories
        (map #(.getTags %))
        (map get-data-from-tags)
-       )
+       (into {}))
   )
 
 
