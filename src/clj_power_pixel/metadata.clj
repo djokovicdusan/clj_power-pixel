@@ -2,6 +2,12 @@
   (:require [clojure.java.io :as io])
   (:import [com.drew.imaging ImageMetadataReader ImageProcessingException])
   )
+(defn- get-data-from-tags
+  [tags]
+  (map (fn [t] {(.getTagName t) (.getDescription t)}) tags))
+
+
+
 (defn- get-metadata-from-photo
   ;; function that fetches all tags from mapped collections
   ;; , when given the file name
@@ -9,5 +15,9 @@
   (->> (io/file photo-path)
        ImageMetadataReader/readMetadata
        .getDirectories
-       (map #(.getTags %)))
+       (map #(.getTags %))
+       (map get-data-from-tags)
+       )
   )
+
+
