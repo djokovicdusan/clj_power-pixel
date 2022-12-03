@@ -40,4 +40,12 @@
   [photo-path]
   (get (safe-get-metadata-from-photo photo-path) "Date/Time Original"))
 
+(defn get-camera-model-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Model"))
+
+(defn get-lens-model-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Lens Model"))
+
 
