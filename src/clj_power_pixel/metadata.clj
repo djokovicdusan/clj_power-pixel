@@ -51,5 +51,12 @@
 (defn get-file-type-from-photo
   [photo-path]
   (get (safe-get-metadata-from-photo photo-path) "Detected File Type Name"))
+(defn get-caption-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Caption/Abstract"))
+
+(defn get-rating-from-photo
+  [photo-path]
+  (get (safe-get-metadata-from-photo photo-path) "Rating"))
 
 
