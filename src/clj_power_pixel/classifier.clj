@@ -31,5 +31,9 @@
     (map #(str/join "/" [target-directory %1 %2]) prefixes filenames)))
 
 
-
+(defn map-src-and-target-directories-with-caption-classifier
+  [source-directory target-directory]
+  (let [files (nsfiles/find-files-in-given-directory-without-subdirs source-directory)
+        target-filenames (find-target-filenames-and-arrange-in-folder-by-class target-directory files)]
+    (zipmap files target-filenames)))
 
