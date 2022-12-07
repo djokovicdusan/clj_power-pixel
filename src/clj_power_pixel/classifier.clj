@@ -37,8 +37,20 @@
         target-filenames (find-target-filenames-and-arrange-in-folder-by-class target-directory files)]
     (zipmap files target-filenames)))
 
-(defn arrange-photos
+(defn map-src-and-target-directories-with-artist-classifier
+  [source-directory target-directory]
+  (let [files (nsfiles/find-files-in-given-directory-without-subdirs source-directory)
+        target-filenames (find-target-filenames-and-arrange-in-folder-by-artist target-directory files)]
+    (zipmap files target-filenames)))
+
+(defn arrange-photos-by-class
   [source-directory target-directory]
   (doseq [[source-2 target-filename] (map-src-and-target-directories-with-caption-classifier source-directory target-directory)]
+    (io/make-parents target-filename)
+    (io/copy source-2 (io/file target-filename))))
+
+(defn arrange-photos-by-artist
+  [source-directory target-directory]
+  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-artist-classifier source-directory target-directory)]
     (io/make-parents target-filename)
     (io/copy source-2 (io/file target-filename))))
