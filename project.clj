@@ -9,5 +9,8 @@
   :main image-meta.ui
   :uberjar-name "image-meta.jar"
   :source-paths ["src"]
-  :profiles {:uberjar {:aot :all}}
+  :profiles {:uberjar {:aot :all}
+             :dev
+             {:dependencies [[midje "1.10.9"]]
+              :plugins      [[lein-midje "3.2.1"]]}}
   :repl-options {:init-ns clj-power-pixel.core})
