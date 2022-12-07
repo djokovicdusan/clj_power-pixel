@@ -17,6 +17,11 @@
         artist (map metadata/get-artist-from-photo files)]
     (map #(str/join "/" [target-directory %1 %2]) artist filenames)))
 
+(defn find-target-filenames-and-arrange-in-folder-by-camera-model
+  [target-directory files]
+  (let [filenames (map #(.getName %) files)
+        camera-model (map metadata/get-camera-model-from-photo files)]
+    (map #(str/join "/" [target-directory %1 %2]) camera-model filenames)))
 
 (defn find-target-filenames-and-arrange-in-folder-by-class
   [target-directory files]
