@@ -6,7 +6,7 @@
   (:import [com.drew.imaging ImageMetadataReader ImageProcessingException]))
 
 
-(facts "test author"
+(midje.sweet/facts "test author"
        (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2111.jpg") => "DUSAN DJOKOVIC"
        (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2162.jpg") => "DUSAN DJOKOVIC"
        (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2284.jpg") => "DUSAN DJOKOVIC"

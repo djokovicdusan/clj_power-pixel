@@ -10,5 +10,4 @@
                     (.isHidden %)))))
 (defn find-all-files-in-given-directory
   [file-directory]
-  (->> (io/file file-directory)
-       file-seq))
+  (file-seq (io/file file-directory)))
