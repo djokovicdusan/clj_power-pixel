@@ -1,12 +1,12 @@
 (ns clj-power-pixel.metadata
   (:require [clojure.java.io :as io])
-  (:import [com.drew.imaging ImageMetadataReader ImageProcessingException])
-  )
+  (:import [com.drew.imaging ImageMetadataReader ImageProcessingException]))
+
+
+
 (defn- get-data-from-tags
   [tags]
   (into {} (map (fn [t] {(.getTagName t) (.getDescription t)}) tags)))
-
-
 
 (defn- get-metadata-from-photo
   ;; function that fetches all tags from mapped collections

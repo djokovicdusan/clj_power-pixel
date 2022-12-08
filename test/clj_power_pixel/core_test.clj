@@ -49,4 +49,17 @@
        (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2338.jpg") => "JPEG"
        (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/dummy/json.js") => nil)
 
+(facts "test get metadata"
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/dummy/json.js") => {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2111.jpg") =>  seq{}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2162.jpg") =>  seq{}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2284.jpg") =>  seq{}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2298.jpg") =>  seq{}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2320.jpg") =>  seq{}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2329.jpg") =>  seq{}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2333.jpg") =>  seq{}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2338.jpg") =>  seq{})
+
+(facts "test get files"
+       (clj-power-pixel.files/find-files-in-given-directory-without-subdirs "resources-test/photos") => seq {})
 
