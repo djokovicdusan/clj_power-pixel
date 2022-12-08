@@ -28,5 +28,15 @@
        (clj-power-pixel.metadata/get-caption-from-photo "resources-test/photos/MS__2338.jpg") => "A"
        (clj-power-pixel.metadata/get-caption-from-photo "resources-test/dummy/json.js") => nil)
 
+(facts "test camera model"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2111.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2162.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2284.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2298.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2320.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2329.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2333.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2338.jpg") => "Canon EOS 7D"
+       (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/dummy/json.js") => nil)
 
 
