@@ -12,3 +12,10 @@
   [path]
   (Highgui/imread path))
 
+(defn get-image-meta
+  [mat]
+  (let [rows (.rows mat)
+        cols (.cols mat)
+        type (.type mat)]
+    {:rows rows :cols cols :type type}))
+
