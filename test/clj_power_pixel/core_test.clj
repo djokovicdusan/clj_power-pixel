@@ -38,5 +38,15 @@
        (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2333.jpg") => "Canon EOS 7D"
        (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/photos/MS__2338.jpg") => "Canon EOS 7D"
        (clj-power-pixel.metadata/get-camera-model-from-photo "resources-test/dummy/json.js") => nil)
+(facts "test file type"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2111.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2162.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2284.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2298.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2320.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2329.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2333.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/photos/MS__2338.jpg") => "JPEG"
+       (clj-power-pixel.metadata/get-file-type-from-photo "resources-test/dummy/json.js") => nil)
 
 
