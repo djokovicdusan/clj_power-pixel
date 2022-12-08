@@ -13,10 +13,11 @@
   (Highgui/imread photo-path))
 
 (defn get-metadata-from-photo-as-mat-object
-  [mat]
-  (let [rows (.rows mat)
-        cols (.cols mat)
-        type (.type mat)]
+  [mat-object]
+  (let [rows (.rows mat-object)
+        cols (.cols mat-object)
+        ;;type is an internal opencv key differentiator
+        type (.type mat-object)]
     {:rows rows :cols cols :type type}))
 
 (defn calculate-dimensions-difference-in-pixels
