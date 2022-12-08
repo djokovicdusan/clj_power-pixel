@@ -8,14 +8,20 @@
 (defonce opencv-native-loaded?
          (RT/loadLibrary Core/NATIVE_LIBRARY_NAME))
 
-(defn load-image
-  [path]
-  (Highgui/imread path))
+(defn load-photo-as-mat-object
+  [photo-path]
+  (Highgui/imread photo-path))
 
-(defn get-image-meta
+(defn get-metadata-from-photo-as-mat-object
   [mat]
   (let [rows (.rows mat)
         cols (.cols mat)
         type (.type mat)]
     {:rows rows :cols cols :type type}))
 
+(defn calculate-dimensions-difference-in-pixels
+  [mat-object-first mat-object-second]
+  (let [a-meta (get-metadata-from-photo-as-mat-object mat-object-first)
+        b-meta (get-metadata-from-photo-as-mat-object mat-object-second)]
+    [(- (:cols a-meta) (:cols b-meta))
+     (- (:rows a-meta) (:rows b-meta))]))
