@@ -21,8 +21,22 @@
     {:rows rows :cols cols :type type}))
 
 (defn calculate-dimensions-difference-in-pixels
-  [mat-object-first mat-object-second]
-  (let [a-meta (get-metadata-from-photo-as-mat-object mat-object-first)
-        b-meta (get-metadata-from-photo-as-mat-object mat-object-second)]
+  [first-mat-object second-mat-object]
+  (let [a-meta (get-metadata-from-photo-as-mat-object first-mat-object)
+        b-meta (get-metadata-from-photo-as-mat-object second-mat-object)]
     [(- (:cols a-meta) (:cols b-meta))
      (- (:rows a-meta) (:rows b-meta))]))
+
+
+(defn find-if-comparable
+  ;; fn that finds if two given photos are comparable
+  ;; photos are COMPARABLE when their resolutions in pixels are in compliance
+  ;; and if they are comparable, function returns source (child photo) and template(parent photo)
+  ;;  if they are NOT COMPARABLE - returns nil
+  [first-photo second-photo]
+  (let [[first-mat-object second-mat-object] (map load-photo-as-mat-object [first-photo second-photo])
+        [cols rows] (calculate-dimensions-difference-in-pixels first-mat-object second-mat-object)]
+    (cond
+      (and (> cols 0) (> rows 0)) [second-mat-object first-mat-object]
+      (and (<= cols 0) (<= rows 0)) [first-mat-object second-mat-object]
+      :else [nil nil])))
