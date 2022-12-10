@@ -4,6 +4,7 @@
   (:import [org.opencv.core Core Mat]
            [org.opencv.highgui Highgui]
            [org.opencv.imgproc Imgproc]
+           [org.opencv.core CvException CvException]
            [com.drew.imaging ImageProcessingException]
            (clojure.lang RT)))
 
@@ -78,7 +79,7 @@
     (Core/flip mat-object result-mat 0)                     ;; third parametar is flipCode - which is 1 for hor. flip, 0 for vertical flip, see doc
     result-mat))
 
-(defn- best-match
+(defn best-match
   [first-photo-path second-photo-path]
   (let [[source template] (find-if-comparable first-photo-path second-photo-path)]
     (if (and source template)
@@ -104,3 +105,7 @@
        ;; if the metadata is fetched, the file given is safe for matching
        (best-match first-photo second-photo)
        (catch ImageProcessingException _ {})))
+(defn safe-best-match-2
+  [first-photo second-photo]
+  (try (best-match first-photo second-photo)
+       (catch CvException _ {})))
