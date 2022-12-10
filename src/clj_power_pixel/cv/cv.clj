@@ -78,9 +78,9 @@
     (Core/flip mat-object result-mat 0)                     ;; third parametar is flipCode - which is 1 for hor. flip, 0 for vertical flip, see doc
     result-mat))
 
-(defn best-match
-  [first-photo second-photo]
-  (let [[source template] (find-if-comparable first-photo second-photo)]
+(defn- best-match
+  [first-photo-path second-photo-path]
+  (let [[source template] (find-if-comparable first-photo-path second-photo-path)]
     (if (and source template)
       (let [match-result-original (get-similiraty-between-two-photos-in-percents source template)
             a-match? (:match? match-result-original)
@@ -97,3 +97,10 @@
 
 
 
+(defn safe-best-match
+  [first-photo second-photo]
+  (try (clj-power-pixel.metadata/safe-get-metadata-from-photo first-photo)
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo second-photo)
+       ;; if the metadata is fetched, the file given is safe for matching
+       (best-match first-photo second-photo)
+       (catch ImageProcessingException _ {})))
