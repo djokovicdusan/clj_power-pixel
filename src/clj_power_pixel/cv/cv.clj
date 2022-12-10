@@ -1,8 +1,10 @@
 (ns clj-power-pixel.cv.cv
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io]
+            [clj-power-pixel.metadata :refer :all])
   (:import [org.opencv.core Core Mat]
            [org.opencv.highgui Highgui]
            [org.opencv.imgproc Imgproc]
+           [com.drew.imaging ImageProcessingException]
            (clojure.lang RT)))
 
 (defonce opencv-native-loaded?
@@ -75,3 +77,23 @@
         result-mat (Mat. rows cols type)]
     (Core/flip mat-object result-mat 0)                     ;; third parametar is flipCode - which is 1 for hor. flip, 0 for vertical flip, see doc
     result-mat))
+
+(defn best-match
+  [first-photo second-photo]
+  (let [[source template] (find-if-comparable first-photo second-photo)]
+    (if (and source template)
+      (let [match-result-original (get-similiraty-between-two-photos-in-percents source template)
+            a-match? (:match? match-result-original)
+            match-result-flipped (when-not a-match?
+                                   (get-similiraty-between-two-photos-in-percents (horizontal-flip source) template))]
+        (if a-match?
+          match-result-original
+          (let [first-similiraty (:similarity match-result-original)
+                second-similarity (:similarity match-result-flipped)]
+            (if (> first-similiraty second-similarity)
+              match-result-original
+              match-result-flipped))))
+      {:x 0 :y 0 :match? false :similarity 0})))
+
+
+
