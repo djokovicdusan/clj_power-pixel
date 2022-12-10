@@ -42,7 +42,7 @@
       :else [nil nil])))
 
 
-(defn compare-photos [source template]
+(defn match-template-wrapper [source template]
   (let [[rows cols] (calculate-dimensions-difference-in-pixels source template)
         comparison-result-mat (Mat. (inc (Math/abs rows)) (inc (Math/abs cols)) (.type source))]
     ;; TM-CCOEFF-NORMED - correlation coefficient method to compare these photos
@@ -50,3 +50,14 @@
     ;;  make the dark parts of the image negative values and the bright parts of the image positive values.
     (Imgproc/matchTemplate source template comparison-result-mat Imgproc/TM_CCOEFF_NORMED)
     comparison-result-mat))
+
+(defn get-similiraty-between-two-photos-in-percents [a b]
+  (let [result-mat (match-template-wrapper a b)
+        min-max (Core/minMaxLoc result-mat)
+        highest-match-pixel-location (.maxLoc min-max)
+        x (.x highest-match-pixel-location)
+        y (.y highest-match-pixel-location)
+        highest-match-value (.maxVal min-max)
+        similarity (* 100 highest-match-value)
+        match? (> similarity 92)]
+    {:x x :y y :match? match? :similarity similarity}))
