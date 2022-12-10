@@ -40,3 +40,13 @@
       (and (> cols 0) (> rows 0)) [second-mat-object first-mat-object]
       (and (<= cols 0) (<= rows 0)) [first-mat-object second-mat-object]
       :else [nil nil])))
+
+
+(defn compare-photos [source template]
+  (let [[rows cols] (calculate-dimensions-difference-in-pixels source template)
+        comparison-result-mat (Mat. (inc (Math/abs rows)) (inc (Math/abs cols)) (.type source))]
+    ;; TM-CCOEFF-NORMED - correlation coefficient method to compare these photos
+    ;;TM_CCOEFF method is simply used to make the template and image zero mean and
+    ;;  make the dark parts of the image negative values and the bright parts of the image positive values.
+    (Imgproc/matchTemplate source template comparison-result-mat Imgproc/TM_CCOEFF_NORMED)
+    comparison-result-mat))
