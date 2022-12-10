@@ -51,13 +51,27 @@
     (Imgproc/matchTemplate source template comparison-result-mat Imgproc/TM_CCOEFF_NORMED)
     comparison-result-mat))
 
-(defn get-similiraty-between-two-photos-in-percents [a b]
-  (let [result-mat (match-template-wrapper a b)
+(defn get-similiraty-between-two-photos-in-percents [first-mat-object second-mat-object]
+  (let [result-mat (match-template-wrapper first-mat-object second-mat-object)
         min-max (Core/minMaxLoc result-mat)
         highest-match-pixel-location (.maxLoc min-max)
         x (.x highest-match-pixel-location)
         y (.y highest-match-pixel-location)
         highest-match-value (.maxVal min-max)
-        similarity (* 100 highest-match-value)
+        similarity (* highest-match-value 100)
         match? (> similarity 92)]
     {:x x :y y :match? match? :similarity similarity}))
+
+(defn horizontal-flip
+  [mat-object]
+  (let [{:keys [rows cols type]} (get-metadata-from-photo-as-mat-object mat-object)
+        result-mat (Mat. rows cols type)]
+    (Core/flip mat-object result-mat 1)                     ;; third parametar is flipCode - which is 1 for hor. flip, 0 for vertical flip, see doc
+    result-mat))
+
+(defn vertical-flip
+  [mat-object]
+  (let [{:keys [rows cols type]} (get-metadata-from-photo-as-mat-object mat-object)
+        result-mat (Mat. rows cols type)]
+    (Core/flip mat-object result-mat 0)                     ;; third parametar is flipCode - which is 1 for hor. flip, 0 for vertical flip, see doc
+    result-mat))
