@@ -105,6 +105,7 @@
        ;; if the metadata is fetched, the file given is safe for matching
        (best-match first-photo second-photo)
        (catch ImageProcessingException _ {})))
+
 (defn safe-best-match-2
   [first-photo second-photo]
   (try (best-match first-photo second-photo)
