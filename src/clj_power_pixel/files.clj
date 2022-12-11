@@ -31,11 +31,16 @@
   []
   (let [photos-path-list (find-image-files-and-return-path-list "resources/photos")
         pairings (combo/combinations photos-path-list 2)]
+    (map perform-single-match pairings)))
+(defn run-pairings-parallel
+  []
+  (let [photos-path-list (find-image-files-and-return-path-list "resources/photos")
+        pairings (combo/combinations photos-path-list 2)]
     (pmap perform-single-match pairings)))
 
 (defn find-matches
   []
-  (let [results (vec (run-pairings))]
+  (let [results (vec (run-pairings-parallel))]
     (filter #(:match? (first %)) results)))
 
 (defn -main

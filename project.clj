@@ -16,4 +16,4 @@
              {:dependencies [[midje "1.10.9"]]
               :plugins      [[lein-midje "3.2.1"]]}}
 
-  :repl-options {:init-ns clj-power-pixel.core})
+  :repl-options {:init-ns clj_power-pixel.files})
