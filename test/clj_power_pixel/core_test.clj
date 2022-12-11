@@ -87,7 +87,39 @@
        (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2329.jpg"))) => 3456
        (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2333.jpg"))) => 3456
        (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2338.jpg"))) => 3456)
+(facts "test cv pixels destrucuring cols"
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2111.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2162.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2284.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2298.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2320.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2329.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2333.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2338.jpg"))) => 5184)
 
+(facts "test if comparable"
+       (and (instance? org.opencv.core.Mat (get (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2111.jpg" "resources/photos/MS__2111a.jpg") 0))
+            (instance? org.opencv.core.Mat (get (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2111.jpg" "resources/photos/MS__2111a.jpg") 1))) => true
+       ;;same as above, just more elegant
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2111.jpg" "resources/photos/MS__2111a.jpg")) => [true true]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2111.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2162.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2284.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2298.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2320.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2329.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2333.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false]
+       (map #(instance? org.opencv.core.Mat %) (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2338.jpg" "resources-test/dummy/MS__8103.jpg")) => [false false])
+
+(facts "test horizontal flip"
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2111.jpg"))) => true
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2162.jpg"))) => true
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2284.jpg"))) => true
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2298.jpg"))) => true
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2320.jpg"))) => true
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2329.jpg"))) => true
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2333.jpg"))) => true
+       (instance? org.opencv.core.Mat (clj-power-pixel.cv.cv/horizontal-flip (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2338.jpg"))) => true)
 
 (facts "test cv comparison"
        (:match? (get (clj-power-pixel.files/perform-single-match
