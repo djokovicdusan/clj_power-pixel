@@ -31,7 +31,7 @@
   []
   (let [photos-path-list (find-image-files-and-return-path-list "resources/photos")
         pairings (combo/combinations photos-path-list 2)]
-    (map perform-single-match pairings)))
+    (pmap perform-single-match pairings)))
 
 (defn find-matches
   []

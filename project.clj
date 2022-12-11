@@ -8,7 +8,7 @@
                  [seesaw "1.5.0"]
                  [opencv/opencv-native "2.4.13"]
                  [opencv/opencv "2.4.13"]]
-  :main clj_power_pixel.files
+  :main clj_power-pixel.files
   :plugins [[lein-localrepo "0.5.2"]]
   :source-paths ["src"]
   :profiles {:uberjar {:aot :all}
@@ -16,4 +16,4 @@
              {:dependencies [[midje "1.10.9"]]
               :plugins      [[lein-midje "3.2.1"]]}}
 
-  )
+  :repl-options {:init-ns clj-power-pixel.core})
