@@ -2,20 +2,21 @@
   (:require [clojure.test :refer :all]
             [clj-power-pixel.core :refer :all]
             [clj-power-pixel.metadata :refer :all]
+            [clj-power-pixel.files :refer :all]
             [midje.sweet :refer :all])
   (:import [com.drew.imaging ImageMetadataReader ImageProcessingException]))
 
 
 (midje.sweet/facts "test author"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2111.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2162.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2284.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2298.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2320.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2329.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2333.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2338.jpg") => "DUSAN DJOKOVIC"
-       (clj-power-pixel.metadata/get-artist-from-photo "resources-test/dummy/json.js") => nil)
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2111.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2162.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2284.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2298.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2320.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2329.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2333.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/photos/MS__2338.jpg") => "DUSAN DJOKOVIC"
+                   (clj-power-pixel.metadata/get-artist-from-photo "resources-test/dummy/json.js") => nil)
 
 (facts "test caption"
        (clj-power-pixel.metadata/get-caption-from-photo "resources-test/photos/MS__2111.jpg") => "A"
@@ -51,15 +52,28 @@
 
 (facts "test get metadata"
        (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/dummy/json.js") => {}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2111.jpg") =>  seq{}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2162.jpg") =>  seq{}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2284.jpg") =>  seq{}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2298.jpg") =>  seq{}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2320.jpg") =>  seq{}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2329.jpg") =>  seq{}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2333.jpg") =>  seq{}
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2338.jpg") =>  seq{})
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2111.jpg") => seq {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2162.jpg") => seq {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2284.jpg") => seq {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2298.jpg") => seq {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2320.jpg") => seq {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2329.jpg") => seq {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2333.jpg") => seq {}
+       (clj-power-pixel.metadata/safe-get-metadata-from-photo "resources-test/photos/MS__2338.jpg") => seq {})
 
 (facts "test get files"
        (clj-power-pixel.files/find-files-in-given-directory-without-subdirs "resources-test/photos") => seq {})
+
+;; mat objects tests
+(facts "test mat objects"
+       (clj-power-pixel.files/find-image-files-and-return-path-list "resources-test/photos") => seq {}
+       )
+
+(facts "test cv comparison"
+       (:match? (get (clj-power-pixel.files/perform-single-match
+                       ["resources-test/photos/MS__2111.jpg" "resources/photos/MS__2111a.jpg"]) 0)) => true
+       (:match? (get (clj-power-pixel.files/perform-single-match
+                       ["resources-test/photos/MS__2111.jpg" "resources-test/photos/MS__2111.jpg"]) 0)) => true
+       (:match? (get (clj-power-pixel.files/perform-single-match
+                       ["resources-test/photos/MS__2111.jpg" "resources-test/photos/MS__2329.jpg"]) 0)) => false)
 
