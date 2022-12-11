@@ -34,7 +34,7 @@
     (map perform-single-match pairings)))
 (defn run-pairings-parallel
   []
-  (let [photos-path-list (find-image-files-and-return-path-list "resources/photos")
+  (let [photos-path-list (find-image-files-and-return-path-list "resources/images")
         pairings (combo/combinations photos-path-list 2)]
     (pmap perform-single-match pairings)))
 
@@ -48,5 +48,7 @@
   (let [matches (find-matches)]
     (println "Matches found:")
     (doseq [[result file-a file-b] matches]
+      (spit (str "resources/reports/matches" (quot (System/currentTimeMillis) 1000) ".txt")
+            (str file-a " and " file-b "\n") :append true)
       (println file-a "and" file-b))
     (shutdown-agents)))
