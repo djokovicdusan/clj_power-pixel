@@ -38,8 +38,8 @@
   (let [results (vec (run-pairings))]
     (filter #(:match? (first %)) results)))
 
-(defn main
-  []
+(defn -main
+  [& args]
   (let [matches (find-matches)]
     (println "Matches found:")
     (doseq [[result file-a file-b] matches]
