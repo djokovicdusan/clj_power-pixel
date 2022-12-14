@@ -19,7 +19,7 @@
 
 (defn find-target-filenames-and-arrange-in-folder-by-camera-model
   [target-directory files]
-  
+
   (let [filenames (map #(.getName %) files)
         camera-model (map metadata/get-camera-model-from-photo files)]
     (map #(str/join "/" [target-directory %1 %2]) camera-model filenames)))
@@ -44,6 +44,12 @@
         target-filenames (find-target-filenames-and-arrange-in-folder-by-artist target-directory files)]
     (zipmap files target-filenames)))
 
+(defn map-src-and-target-directories-with-camera-model-classifier
+  [source-directory target-directory]
+  (let [files (nsfiles/find-files-in-given-directory-without-subdirs source-directory)
+        target-filenames (find-target-filenames-and-arrange-in-folder-by-camera-model target-directory files)]
+    (zipmap files target-filenames)))
+
 (defn arrange-photos-by-class
   [source-directory target-directory]
   (doseq [[source-2 target-filename] (map-src-and-target-directories-with-caption-classifier source-directory target-directory)]
@@ -53,5 +59,11 @@
 (defn arrange-photos-by-artist
   [source-directory target-directory]
   (doseq [[source-2 target-filename] (map-src-and-target-directories-with-artist-classifier source-directory target-directory)]
+    (io/make-parents target-filename)
+    (io/copy source-2 (io/file target-filename))))
+
+(defn arrange-photos-by-camera-make-model
+  [source-directory target-directory]
+  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-camera-model-classifier source-directory target-directory)]
     (io/make-parents target-filename)
     (io/copy source-2 (io/file target-filename))))
