@@ -14,17 +14,15 @@
                        :id :src :text "Choose source directory") "span 4"]
             [(ss/label :icon (io/resource "icons/ic_folder.png")
                        :id :target :text "Choose target directory") "span 4"]
-            [(ss/checkbox :id :copy :selected? true) "span 1"]
-            [(ss/label :text "Copy files?") "span 3"]
             [(ss/checkbox :id :cv :selected? true) "span 1"]
-            [(ss/label :text "Run plagiarism checker?") "span 3"]
+            [(ss/label :text "Run plagiarism checker?") "span 4"]
             [""]
             [(ss/button :id :submit :text "Submit" :enabled? false)]]))
 
 (defn build-main-ui-frame
   [exit?]
   (ss/frame :title "Power Pixel tool by Dule Djo"
-            :size [500 :by 300]
+            :size [370 :by 200]
             :on-close (if exit? :exit :dispose)
             :content my-view
             :resizable? false))
