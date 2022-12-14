@@ -17,12 +17,18 @@
             [(ss/checkbox :id :cv :selected? true) "span 1"]
             [(ss/label :text "Run plagiarism checker?") "span 4"]
             [""]
+            [(ss/label :text "Classify by:")]
+            [(let [bg (ss/button-group)]
+               (ss/flow-panel :items [(ss/radio :id :a :text "Camera" :group bg)
+                                      (ss/radio :id :b :text "Artist" :group bg)
+                                      (ss/radio :id :c :text "Caption" :group bg)]))]
+
             [(ss/button :id :submit :text "Submit" :enabled? false)]]))
 
 (defn build-main-ui-frame
   [exit?]
   (ss/frame :title "Power Pixel tool by Dule Djo"
-            :size [370 :by 200]
+            :size [500 :by 300]
             :on-close (if exit? :exit :dispose)
             :content my-view
             :resizable? false))
@@ -37,3 +43,4 @@
   []
   ;;replace with false if you don't want to kill REPL on exit
   (ui-main true))
+
