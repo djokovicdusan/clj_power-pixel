@@ -1,5 +1,6 @@
 (ns clj-power-pixel.ui
   (:require [clj-power-pixel.cv.cv :as nscv]
+            [clj-power-pixel.classifier :as nsclass]
             [seesaw.core :as ss]
             [seesaw.mig :as mig]
             [seesaw.chooser :as sc]
@@ -11,19 +12,54 @@
   (mig/mig-panel
     :constraints ["wrap 4, center, gap 15"]
     :items [[(ss/label :icon (io/resource "icons/ic_folder.png")
-                       :id :src :text "Choose source directory") "span 4"]
+                       :id :sourceDirectory :text "Choose source directory") "span 4"]
             [(ss/label :icon (io/resource "icons/ic_folder.png")
-                       :id :target :text "Choose target directory") "span 4"]
+                       :id :targetDirectory :text "Choose target directory") "span 4"]
             [(ss/checkbox :id :cv :selected? true) "span 1"]
             [(ss/label :text "Run plagiarism checker?") "span 4"]
             [""]
             [(ss/label :text "Classify by:")]
-            [(let [bg (ss/button-group)]
-               (ss/flow-panel :items [(ss/radio :id :a :text "Camera" :group bg)
-                                      (ss/radio :id :b :text "Artist" :group bg)
-                                      (ss/radio :id :c :text "Caption" :group bg)]))]
+            [(let [group (ss/button-group)]
+               (ss/flow-panel :items [(ss/radio :id :camera-button :text "Camera" :group group)
+                                      (ss/radio :id :artist-button :text "Artist" :group group)
+                                      (ss/radio :id :caption-button :text "Caption" :group group)]))]
 
             [(ss/button :id :submit :text "Submit" :enabled? false)]]))
+
+(def ui-data (atom {:cv true}))
+
+(defn check-if-submit-is-enabled
+  [frame]
+  (let [{:keys [sourceDirectory targetDirectory]} @ui-data]
+    (when (and sourceDirectory targetDirectory)
+      (ss/config! (ss/select frame [:#submit]) :enabled? true))))
+
+(defn choose-dir
+  [frame key]
+  (when-let [chosen-dir (sc/choose-file :selection-mode :dirs-only :dir "resources")]
+    (let [absolute-path (.getAbsolutePath chosen-dir)
+          directory-name (.getName chosen-dir)
+          selector-key (if (= key :sourceDirectory) :#sourceDirectory :#targetDirectory)]
+      (ss/config! (ss/select frame [selector-key]) :text directory-name)
+      (swap! ui-data assoc key absolute-path)
+      (check-if-submit-is-enabled frame))))
+
+(defn on-submit
+  [frame]
+  (let [{:keys [sourceDirectory targetDirectory cv]} @ui-data]
+    (when (and sourceDirectory targetDirectory)
+      (nsclass/arrange-photos-by-class sourceDirectory targetDirectory))))
+
+(defn add-listeners
+  [frame]
+  (let [{:keys [sourceDirectory targetDirectory cv camera-button submit]} (ss/group-by-id frame)]
+    (ss/listen sourceDirectory :mouse-clicked (fn [_] (choose-dir frame :sourceDirectory)))
+    (ss/listen targetDirectory :mouse-clicked (fn [_] (choose-dir frame :targetDirectory)))
+    (ss/listen cv :mouse-clicked #(swap! ui-data assoc :cv (ss/value %)))
+    (ss/listen submit :mouse-clicked (fn [_] (on-submit frame)))
+    (ss/listen camera-button :selection (fn [e]
+                                            (println "Selection is " (ss/id-of e))))
+    frame))
 
 (defn build-main-ui-frame
   [exit?]
@@ -35,9 +71,10 @@
 
 (defn ui-main
   [exit?]
-  (ss/invoke-later                                          ;;call on ui thread
+  (ss/invoke-later
     (-> (build-main-ui-frame exit?)
-        ss/show!)))
+        ss/show!
+        add-listeners)))
 
 (defn main
   []
