@@ -52,13 +52,17 @@
 
 (defn add-listeners
   [frame]
-  (let [{:keys [sourceDirectory targetDirectory cv camera-button submit]} (ss/group-by-id frame)]
+  (let [{:keys [sourceDirectory targetDirectory cv camera-button artist-button caption-button submit]} (ss/group-by-id frame)]
     (ss/listen sourceDirectory :mouse-clicked (fn [_] (choose-dir frame :sourceDirectory)))
     (ss/listen targetDirectory :mouse-clicked (fn [_] (choose-dir frame :targetDirectory)))
     (ss/listen cv :mouse-clicked #(swap! ui-data assoc :cv (ss/value %)))
     (ss/listen submit :mouse-clicked (fn [_] (on-submit frame)))
     (ss/listen camera-button :selection (fn [e]
-                                            (println "Selection is " (ss/id-of e))))
+                                          (println "Selection is " (ss/id-of e))))
+    (ss/listen artist-button :selection (fn [e]
+                                          (println "Selection is " (ss/id-of e))))
+    (ss/listen caption-button :selection (fn [e]
+                                           (println "Selection is " (ss/id-of e))))
     frame))
 
 (defn build-main-ui-frame
