@@ -58,11 +58,11 @@
     (ss/listen cv :mouse-clicked #(swap! ui-data assoc :cv (ss/value %)))
     (ss/listen submit :mouse-clicked (fn [_] (on-submit frame)))
     (ss/listen camera-button :selection (fn [e]
-                                          (println "Selection is " (ss/id-of e))))
+                                          (println "Selection is " (ss/id-of e) (ss/value e))))
     (ss/listen artist-button :selection (fn [e]
-                                          (println "Selection is " (ss/id-of e))))
+                                          (println "Selection is " (ss/id-of e) (ss/value e))))
     (ss/listen caption-button :selection (fn [e]
-                                           (println "Selection is " (ss/id-of e))))
+                                           (println "Selection is " (ss/id-of e) (ss/value e))))
     frame))
 
 (defn build-main-ui-frame
