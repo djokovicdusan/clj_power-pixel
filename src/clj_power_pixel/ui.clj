@@ -16,7 +16,7 @@
                        :id :sourceDirectory :text "Choose source directory") "span 4"]
             [(ss/label :icon (io/resource "icons/ic_folder.png")
                        :id :targetDirectory :text "Choose target directory") "span 4"]
-            [(ss/checkbox :id :cv :selected? true) "span 1"]
+            [(ss/checkbox :id :cv :selected? false) "span 1"]
             [(ss/label :text "Run plagiarism checker?") "span 4"]
             [""]
             [(ss/label :text "Classify by:")]
@@ -27,12 +27,14 @@
 
             [(ss/button :id :submit :text "Submit" :enabled? false)]]))
 
-(def ui-data (atom {:cv true :camera false :artist false :caption false}))
+(def ui-data (atom {:cv false :camera false :artist false :caption false}))
 
 (defn check-if-submit-is-enabled
   [frame]
-  (let [{:keys [sourceDirectory targetDirectory]} @ui-data]
+  (let [{:keys [sourceDirectory targetDirectory cv camera artist caption]} @ui-data]
     (when (and sourceDirectory targetDirectory)
+      (ss/config! (ss/select frame [:#submit]) :enabled? true))
+    (when (and sourceDirectory cv (every? false? [camera artist caption]))
       (ss/config! (ss/select frame [:#submit]) :enabled? true))))
 
 (defn choose-dir
@@ -54,7 +56,8 @@
       (nsclass/arrange-photos-by-camera-make-model sourceDirectory targetDirectory))
     (when (and sourceDirectory targetDirectory artist)
       (nsclass/arrange-photos-by-artist sourceDirectory targetDirectory))
-    (when cv nsfiles/run-plag-check sourceDirectory)))
+    (when (and sourceDirectory targetDirectory cv)
+      (nsfiles/run-plag-check sourceDirectory))))
 
 (defn add-listeners
   [frame]
