@@ -13,7 +13,8 @@
   :source-paths ["src"]
   :profiles {:uberjar {:aot :all}
              :dev
-             {:dependencies [[midje "1.10.9"]]
+             {:dependencies [[midje "1.10.9"]
+                             [criterium "0.4.6"]]
               :plugins      [[lein-midje "3.2.1"]]}}
 
   :repl-options {:init-ns clj-power-pixel.files})
