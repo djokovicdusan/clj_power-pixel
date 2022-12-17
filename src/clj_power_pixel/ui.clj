@@ -1,6 +1,7 @@
 (ns clj-power-pixel.ui
   (:require [clj-power-pixel.cv.cv :as nscv]
             [clj-power-pixel.classifier :as nsclass]
+            [clj-power-pixel.files :as nsfiles]
             [seesaw.core :as ss]
             [seesaw.mig :as mig]
             [seesaw.chooser :as sc]
@@ -26,7 +27,7 @@
 
             [(ss/button :id :submit :text "Submit" :enabled? false)]]))
 
-(def ui-data (atom {:cv true}))
+(def ui-data (atom {:cv true :camera false :artist false :caption false}))
 
 (defn check-if-submit-is-enabled
   [frame]
@@ -44,11 +45,16 @@
       (swap! ui-data assoc key absolute-path)
       (check-if-submit-is-enabled frame))))
 
-(defn on-submit
+(defn on-submit-button-clicked
   [frame]
-  (let [{:keys [sourceDirectory targetDirectory cv]} @ui-data]
-    (when (and sourceDirectory targetDirectory)
-      (nsclass/arrange-photos-by-class sourceDirectory targetDirectory))))
+  (let [{:keys [sourceDirectory targetDirectory cv camera artist caption]} @ui-data]
+    (when (and sourceDirectory targetDirectory caption)
+      (nsclass/arrange-photos-by-class sourceDirectory targetDirectory))
+    (when (and sourceDirectory targetDirectory camera)
+      (nsclass/arrange-photos-by-camera-make-model sourceDirectory targetDirectory))
+    (when (and sourceDirectory targetDirectory artist)
+      (nsclass/arrange-photos-by-artist sourceDirectory targetDirectory))
+    (when cv nsfiles/run-plag-check sourceDirectory)))
 
 (defn add-listeners
   [frame]
@@ -56,13 +62,10 @@
     (ss/listen sourceDirectory :mouse-clicked (fn [_] (choose-dir frame :sourceDirectory)))
     (ss/listen targetDirectory :mouse-clicked (fn [_] (choose-dir frame :targetDirectory)))
     (ss/listen cv :mouse-clicked #(swap! ui-data assoc :cv (ss/value %)))
-    (ss/listen submit :mouse-clicked (fn [_] (on-submit frame)))
-    (ss/listen camera-button :selection (fn [e]
-                                          (println "Selection is " (ss/id-of e) (ss/value e))))
-    (ss/listen artist-button :selection (fn [e]
-                                          (println "Selection is " (ss/id-of e) (ss/value e))))
-    (ss/listen caption-button :selection (fn [e]
-                                           (println "Selection is " (ss/id-of e) (ss/value e))))
+    (ss/listen submit :mouse-clicked (fn [_] (on-submit-button-clicked frame)))
+    (ss/listen camera-button :selection #(swap! ui-data assoc :camera (ss/value %)))
+    (ss/listen artist-button :selection #(swap! ui-data assoc :artist (ss/value %)))
+    (ss/listen caption-button :selection #(swap! ui-data assoc :caption (ss/value %)))
     frame))
 
 (defn build-main-ui-frame
