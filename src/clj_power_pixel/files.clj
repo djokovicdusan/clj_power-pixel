@@ -2,7 +2,8 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
             [clj-power-pixel.cv.cv :as cv]
-            [clojure.math.combinatorics :as combo]))
+            [clojure.math.combinatorics :as combo]
+            [criterium.core :refer :all]))
 
 
 (defn find-files-in-given-directory-without-subdirs
@@ -28,8 +29,8 @@
   [(cv/safe-best-match-2 file-a file-b) file-a file-b])
 
 (defn run-pairings
-  []
-  (let [photos-path-list (find-image-files-and-return-path-list "resources/photos")
+  [photo-path]
+  (let [photos-path-list (find-image-files-and-return-path-list photo-path)
         pairings (combo/combinations photos-path-list 2)]
     (map perform-single-match pairings)))
 (defn run-pairings-parallel
@@ -42,6 +43,19 @@
   [photo-path]
   (let [results (vec (run-pairings-parallel photo-path))]
     (filter #(:match? (first %)) results)))
+(defn find-matches-slower
+  [photo-path]
+  (let [results (vec (run-pairings photo-path))]
+    (filter #(:match? (first %)) results)))
+(defn run-plag-check-slower
+  [photo-path]
+  (let [matches (find-matches-slower photo-path)]
+    (println "Matches found:")
+    (doseq [[result file-a file-b] matches]
+      (spit (str "resources/reports/matches" (quot (System/currentTimeMillis) 1000) ".txt")
+            (str file-a " and " file-b "\n") :append true)
+      (println file-a "and" file-b))
+    (shutdown-agents)))
 
 (defn run-plag-check
   [photo-path]
