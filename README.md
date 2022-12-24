@@ -6,11 +6,27 @@ as well as to use OpenCV library to detect plagiarism among photos.
 You will need Leiningen installed.
 
 ## Usage
+To start the application, open the terminal and run:
+`lein run`
 
-FIXME
-
-## Source
-
+## Description
+When the program runs, the user has an option to choose source directory of the photos, as well as
+the target directory where photos will be classified by Caption, Artist or Camera make model.
+Furthermore, user has an option to choose whether to run a plagiarism check. If one decides
+to run a plagiarism check, that will result in creating a unique report of the matched pairs that
+can be found in `reports` folder in project root directory.
+The business logic for extracting metadata from photos was completed with
+the help of MetadataExtractor library.
+The business logic for plagiarism detection was developed using OpenCV template matching functions.
+The method that was used to compare these photos is called 
+TM-CCOEFF-NORMED - correlation coefficient method.
+TM_CCOEFF method is simply used to make the template and image zero mean and
+make the dark parts of the image negative values and the bright parts of
+the image positive values. This means that when bright parts of the template
+and image overlap you'll get a positive value in the dot product, as well as when dark parts overlap with dark parts.
+The UI of this project was developed using Seesaw library.
+This project was developed for the purpose of the course "Tools and methods of Soft. Eng. and AI" at
+Master studies at University of Belgrade, Faculty of Organizational Sciences.
 
 ## License
 
