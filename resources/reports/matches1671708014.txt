@@ -1,0 +1,3 @@
+resources\images\1.jpg and resources\images\1a.jpg
+resources\images\2.jpg and resources\images\2a.jpg
+resources\images\3.jpg and resources\images\3a.jpg
