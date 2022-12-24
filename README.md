@@ -1,10 +1,16 @@
 # Photo plagiarism detector and classifier tool in Clojure
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure simple project designed to classify photos by various metadata tags,
+as well as to use OpenCV library to detect plagiarism among photos.
+## Prerequisites
+You will need Leiningen installed.
 
 ## Usage
 
 FIXME
+
+## Source
+
 
 ## License
 
