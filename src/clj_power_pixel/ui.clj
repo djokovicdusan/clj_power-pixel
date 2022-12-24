@@ -86,7 +86,7 @@
         ss/show!
         add-listeners)))
 
-(defn main
+(defn -main
   []
   ;;replace with false if you don't want to kill REPL on exit
   (ui-main true))

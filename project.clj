@@ -8,7 +8,7 @@
                  [seesaw "1.5.0"]
                  [opencv/opencv-native "2.4.13"]
                  [opencv/opencv "2.4.13"]]
-  :main clj-power-pixel.files
+  :main clj-power-pixel.ui
   :plugins [[lein-localrepo "0.5.2"]]
   :source-paths ["src"]
   :profiles {:uberjar {:aot :all}
