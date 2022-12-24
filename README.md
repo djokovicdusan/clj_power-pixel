@@ -1,4 +1,4 @@
-# clj_power-pixel
+# Photo plagiarism detector and classifier tool in Clojure
 
 A Clojure library designed to ... well, that part is up to you.
 
