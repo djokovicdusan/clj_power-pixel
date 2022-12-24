@@ -3,7 +3,7 @@
 A simple project designed to classify photos by various metadata tags,
 as well as to use OpenCV library to detect plagiarism among photos.
 ## Prerequisites
-You will need Leiningen installed.
+You will need [Leiningen](https://leiningen.org/) installed.
 
 ## Usage
 To start the application, open the terminal and run:
@@ -17,7 +17,7 @@ to run a plagiarism check, that will result in creating a unique report of the m
 can be found in `reports` folder in project root directory.
 
 The business logic for extracting metadata from photos was completed with
-the help of MetadataExtractor library.
+the help of [MetadataExtractor](https://github.com/drewnoakes/metadata-extractor) library.
 
 The business logic for plagiarism detection was developed using OpenCV template matching functions.
 The method that was used to compare these photos is called 
@@ -27,10 +27,20 @@ make the dark parts of the image negative values and the bright parts of
 the image positive values. This means that when bright parts of the template
 and image overlap you'll get a positive value in the dot product, as well as when dark parts overlap with dark parts.
 
-The UI of this project was developed using Seesaw library.
+The UI of this project was developed using [Seesaw](https://github.com/clj-commons/seesaw) library.
 
 This project was developed for the purpose of the course "Tools and Methods of Soft. Eng. and AI" at
 Master studies at University of Belgrade, Faculty of Organizational Sciences.
+
+## Testing
+[Midje](https://github.com/marick/Midje) library has been used for unit testing. 
+
+## Benchmarking
+
+I compared performance of `map` and `pmap` functions in this project. 
+The conclusion is 
+that `pmap` outperforms `map` in the context where those were faced.
+
 
 ## Sources
 [1] Introduction to OpenCV-Python tutorials (https://docs.opencv.org/3.4/d0/de3/tutorial_py_intro.html)
@@ -44,6 +54,8 @@ Master studies at University of Belgrade, Faculty of Organizational Sciences.
 [5] Seesaw REPL Tutorial (https://ericnormand.me/article/seesaw-repl-tutorial)
 
 [6] https://cljdoc.org/d/seesaw/seesaw/1.5.0/api/seesaw.core#button-group
+
+[7] https://github.com/marick/Midje
 
 ## License
 
