@@ -23,7 +23,7 @@ I wanted a further challenge. Even though OpenCV is a popular library
 with great documentation and tutorials in Python and C++, it was a tough journey
 to put it all in a meaningful context(tons of documentation to read).
 The deeper I dived into Clojure, the more I realised I was naming my variables and functions
-in a "javaboilerplatecodegenerator" manner. Even though i found
+in a "javaboilerplatecodegenerator" manner. Even though I found
 it easier this way, I will try to avoid this practice in
 my next projects.
 
