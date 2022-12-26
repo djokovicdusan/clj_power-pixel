@@ -9,8 +9,6 @@
   (into {} (map (fn [t] {(.getTagName t) (.getDescription t)}) tags)))
 
 (defn- get-metadata-from-photo
-  ;; function that fetches all tags from mapped collections
-  ;; , when given the file name
   [photo-path]
   (->> (io/file photo-path)
        ImageMetadataReader/readMetadata

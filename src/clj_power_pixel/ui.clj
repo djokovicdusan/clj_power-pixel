@@ -73,7 +73,7 @@
 
 (defn build-main-ui-frame
   [exit?]
-  (ss/frame :title "Power Pixel tool by Dule Djo"
+  (ss/frame :title "Power Pixel by Dule Djo"
             :size [500 :by 300]
             :on-close (if exit? :exit :dispose)
             :content my-view
