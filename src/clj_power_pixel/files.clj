@@ -26,7 +26,7 @@
 (defn perform-single-match
   [[file-a file-b]]
   (println ".")
-  [(cv/safe-best-match-2 file-a file-b) file-a file-b])
+  [(cv/safe-best-match file-a file-b) file-a file-b])
 
 (defn run-pairings
   [photo-path]

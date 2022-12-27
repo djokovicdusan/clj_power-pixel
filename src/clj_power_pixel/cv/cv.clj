@@ -96,17 +96,7 @@
               match-result-flipped))))
       {:x 0 :y 0 :match? false :similarity 0})))
 
-
-
 (defn safe-best-match
-  [first-photo second-photo]
-  (try (clj-power-pixel.metadata/safe-get-metadata-from-photo first-photo)
-       (clj-power-pixel.metadata/safe-get-metadata-from-photo second-photo)
-       ;; if the metadata is fetched, the file given is safe for matching
-       (best-match first-photo second-photo)
-       (catch ImageProcessingException _ {})))
-
-(defn safe-best-match-2
   [first-photo second-photo]
   (try (best-match first-photo second-photo)
        (catch CvException _ {})))

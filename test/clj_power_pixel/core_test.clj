@@ -130,5 +130,5 @@
                        ["resources-test/photos/MS__2111.jpg" "resources-test/photos/MS__2329.jpg"]) 0)) => false)
 
 (facts "test open cv errors"
-       (clj-power-pixel.cv.cv/safe-best-match-2 "resources-test/photos/MS__2111.jpg" "resources-test/photos/MS__2111a.jpg") => {})
+       (clj-power-pixel.cv.cv/safe-best-match "resources-test/photos/MS__2111.jpg" "resources-test/photos/MS__2111a.jpg") => {})
 
