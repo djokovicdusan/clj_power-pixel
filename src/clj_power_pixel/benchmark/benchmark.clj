@@ -16,3 +16,7 @@
 ; We can conclude that the pmap function did the better job than regular map function,
 ; in our code, in terms
 ; of performance
+
+(criterium.core/quick-bench (nsclass/map-src-and-target-directories-with-artist-classifier "resources/photos" "resources/photos-target"))
+
+;;  Overhead used : 6.933248 ns
