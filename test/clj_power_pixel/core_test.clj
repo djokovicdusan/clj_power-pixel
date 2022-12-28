@@ -3,9 +3,8 @@
             [clj-power-pixel.core :refer :all]
             [clj-power-pixel.metadata :refer :all]
             [clj-power-pixel.files :refer :all]
-
             [midje.sweet :refer :all])
-  (:import [org.opencv.core CvException CvException]))
+  )
 
 
 (midje.sweet/facts "test author"
