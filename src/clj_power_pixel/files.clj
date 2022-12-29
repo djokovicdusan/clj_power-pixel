@@ -28,12 +28,12 @@
   (println ".")
   [(cv/safe-best-match file-a file-b) file-a file-b])
 
-(defn run-pairings
+(defn run-pairings-matching
   [photo-path]
   (let [photos-path-list (find-image-files-and-return-path-list photo-path)
         pairings (combo/combinations photos-path-list 2)]
     (map perform-single-match pairings)))
-(defn run-pairings-parallel
+(defn run-pairings-matching-parallel
   [photo-path]
   (let [photos-path-list (find-image-files-and-return-path-list photo-path)
         pairings (combo/combinations photos-path-list 2)]
@@ -41,11 +41,11 @@
 
 (defn find-matches
   [photo-path]
-  (let [results (vec (run-pairings-parallel photo-path))]
+  (let [results (vec (run-pairings-matching-parallel photo-path))]
     (filter #(:match? (first %)) results)))
 (defn find-matches-slower
   [photo-path]
-  (let [results (vec (run-pairings photo-path))]
+  (let [results (vec (run-pairings-matching photo-path))]
     (filter #(:match? (first %)) results)))
 (defn run-plag-check-slower
   [photo-path]

@@ -23,7 +23,7 @@
         type (.type mat-object)]
     {:rows rows :cols cols :type type}))
 
-(defn calculate-dimensions-difference-in-pixels
+(defn dimensions-difference
   [first-mat-object second-mat-object]
   (let [a-meta (get-metadata-from-photo-as-mat-object first-mat-object)
         b-meta (get-metadata-from-photo-as-mat-object second-mat-object)]
@@ -38,7 +38,7 @@
   ;;  if they are NOT COMPARABLE - returns nil
   [first-photo second-photo]
   (let [[first-mat-object second-mat-object] (map load-photo-as-mat-object [first-photo second-photo])
-        [cols rows] (calculate-dimensions-difference-in-pixels first-mat-object second-mat-object)]
+        [cols rows] (dimensions-difference first-mat-object second-mat-object)]
     (cond
       (and (> cols 0) (> rows 0)) [second-mat-object first-mat-object]
       (and (<= cols 0) (<= rows 0)) [first-mat-object second-mat-object]
@@ -46,7 +46,7 @@
 
 
 (defn match-template-wrapper [source template]
-  (let [[rows cols] (calculate-dimensions-difference-in-pixels source template)
+  (let [[rows cols] (dimensions-difference source template)
         comparison-result-mat (Mat. (inc (Math/abs rows)) (inc (Math/abs cols)) (.type source))]
     ;; TM-CCOEFF-NORMED - correlation coefficient method to compare these photos
     ;;TM_CCOEFF method is simply used to make the template and image zero mean and

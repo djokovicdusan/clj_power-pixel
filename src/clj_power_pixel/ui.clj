@@ -29,7 +29,7 @@
 
 (def ui-data (atom {:cv false :camera false :artist false :caption false}))
 
-(defn check-if-submit-is-enabled
+(defn is-submit-button-enabled
   [frame]
   (let [{:keys [sourceDirectory targetDirectory cv camera artist caption]} @ui-data]
     (when (and sourceDirectory targetDirectory)
@@ -45,7 +45,7 @@
           selector-key (if (= key :sourceDirectory) :#sourceDirectory :#targetDirectory)]
       (ss/config! (ss/select frame [selector-key]) :text directory-name)
       (swap! ui-data assoc key absolute-path)
-      (check-if-submit-is-enabled frame))))
+      (is-submit-button-enabled frame))))
 
 (defn on-submit-button-clicked
   [frame]
