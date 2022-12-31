@@ -18,12 +18,12 @@ in Caption field), and for various other data.
 Why I added a plagiarism tool?
 
 I thought that the first part of this project was a bit "to easy" to satisfy
-my Professor, so
+this course project, so
 I wanted a further challenge. Even though OpenCV is a popular library
 with great documentation and tutorials in Python and C++, it was a tough journey
 to put it all in a meaningful context(tons of documentation to read).
 The deeper I dived into Clojure, the more I realised I was naming my variables and functions
-in a "javaboilerplatecodegenerator" manner. Even though I found
+in a "boilerplatecodegenerator" manner. Even though I found
 it easier this way, I will try to avoid this practice in
 my next projects.
 
