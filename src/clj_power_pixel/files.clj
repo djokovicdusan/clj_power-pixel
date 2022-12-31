@@ -63,6 +63,6 @@
     (println "Matches found:")
     (doseq [[result file-a file-b] matches]
       (spit (str "resources/reports/matches" (quot (System/currentTimeMillis) 1000) ".txt")
-            (str file-a " and " file-b " with similiraty of: " (get result :similarity) "%" "\n") :append true)
+            (str file-a " and " file-b " with similiraty of: " (result :similarity) "%" "\n") :append true)
       (println file-a "and" file-b))
     (shutdown-agents)))
