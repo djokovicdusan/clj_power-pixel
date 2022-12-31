@@ -4,13 +4,6 @@
             [clojure.string :as str]
             [clojure.java.io :as io]))
 
-
-(defn arrange-in-target-folder-by-copyright
-  [target-directory files]
-  (let [filenames (map #(.getName %) files)
-        copyright (map metadata/get-copyright-from-photo files)]
-    (map #(str/join "/" [target-directory %1 %2]) copyright filenames)))
-
 (defn arrange-in-target-folder-by-artist
   [target-directory files]
   (let [filenames (map #(.getName %) files)
@@ -19,7 +12,6 @@
 
 (defn arrange-in-target-folder-by-camera-model
   [target-directory files]
-
   (let [filenames (map #(.getName %) files)
         camera-model (map metadata/get-camera-model-from-photo files)]
     (map #(str/join "/" [target-directory %1 %2]) camera-model filenames)))

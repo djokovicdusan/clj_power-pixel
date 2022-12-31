@@ -2,8 +2,6 @@
   (:require [clojure.java.io :as io])
   (:import [com.drew.imaging ImageMetadataReader ImageProcessingException]))
 
-
-
 (defn- get-data-from-tags
   [tags]
   (into {} (map (fn [t] {(.getTagName t) (.getDescription t)}) tags)))

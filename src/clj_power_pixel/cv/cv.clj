@@ -19,8 +19,7 @@
   [mat-object]
   (let [rows (.rows mat-object)
         cols (.cols mat-object)
-        ;;type is an internal opencv key differentiator
-        type (.type mat-object)]
+        type (.type mat-object)] ;;type is an internal opencv key differentiator
     {:rows rows :cols cols :type type}))
 
 (defn dimensions-difference
