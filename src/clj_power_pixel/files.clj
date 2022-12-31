@@ -39,6 +39,7 @@
         pairings (combo/combinations photos-path-list 2)]
     (pmap perform-single-match pairings)))
 
+
 (defn find-matches
   [photo-path]
   (let [results (vec (run-pairings-matching-parallel photo-path))]
