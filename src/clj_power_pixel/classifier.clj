@@ -5,26 +5,26 @@
             [clojure.java.io :as io]))
 
 
-(defn find-target-filenames-and-arrange-in-folder-by-copyright
+(defn arrange-in-target-folder-by-copyright
   [target-directory files]
   (let [filenames (map #(.getName %) files)
         copyright (map metadata/get-copyright-from-photo files)]
     (map #(str/join "/" [target-directory %1 %2]) copyright filenames)))
 
-(defn find-target-filenames-and-arrange-in-folder-by-artist
+(defn arrange-in-target-folder-by-artist
   [target-directory files]
   (let [filenames (map #(.getName %) files)
         artist (map metadata/get-artist-from-photo files)]
     (map #(str/join "/" [target-directory %1 %2]) artist filenames)))
 
-(defn find-target-filenames-and-arrange-in-folder-by-camera-model
+(defn arrange-in-target-folder-by-camera-model
   [target-directory files]
 
   (let [filenames (map #(.getName %) files)
         camera-model (map metadata/get-camera-model-from-photo files)]
     (map #(str/join "/" [target-directory %1 %2]) camera-model filenames)))
 
-(defn find-target-filenames-and-arrange-in-folder-by-class
+(defn arrange-in-target-folder-by-caption
   [target-directory files]
   (let [filenames (map #(.getName %) files)
         captions (map metadata/get-caption-from-photo files)
@@ -32,38 +32,38 @@
     (map #(str/join "/" [target-directory %1 %2]) prefixes filenames)))
 
 
-(defn map-src-and-target-directories-with-caption-classifier
+(defn map-src-and-target-directories-with-caption
   [source-directory target-directory]
   (let [files (nsfiles/find-files-in-given-directory-without-subdirs source-directory)
-        target-filenames (find-target-filenames-and-arrange-in-folder-by-class target-directory files)]
+        target-filenames (arrange-in-target-folder-by-caption target-directory files)]
     (zipmap files target-filenames)))
 
-(defn map-src-and-target-directories-with-artist-classifier
+(defn map-src-and-target-directories-with-artist
   [source-directory target-directory]
   (let [files (nsfiles/find-files-in-given-directory-without-subdirs source-directory)
-        target-filenames (find-target-filenames-and-arrange-in-folder-by-artist target-directory files)]
+        target-filenames (arrange-in-target-folder-by-artist target-directory files)]
     (zipmap files target-filenames)))
 
-(defn map-src-and-target-directories-with-camera-model-classifier
+(defn map-src-and-target-directories-with-camera-model
   [source-directory target-directory]
   (let [files (nsfiles/find-files-in-given-directory-without-subdirs source-directory)
-        target-filenames (find-target-filenames-and-arrange-in-folder-by-camera-model target-directory files)]
+        target-filenames (arrange-in-target-folder-by-camera-model target-directory files)]
     (zipmap files target-filenames)))
 
 (defn arrange-photos-by-class
   [source-directory target-directory]
-  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-caption-classifier source-directory target-directory)]
+  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-caption source-directory target-directory)]
     (io/make-parents target-filename)
     (io/copy source-2 (io/file target-filename))))
 
 (defn arrange-photos-by-artist
   [source-directory target-directory]
-  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-artist-classifier source-directory target-directory)]
+  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-artist source-directory target-directory)]
     (io/make-parents target-filename)
     (io/copy source-2 (io/file target-filename))))
 
 (defn arrange-photos-by-camera-make-model
   [source-directory target-directory]
-  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-camera-model-classifier source-directory target-directory)]
+  (doseq [[source-2 target-filename] (map-src-and-target-directories-with-camera-model source-directory target-directory)]
     (io/make-parents target-filename)
     (io/copy source-2 (io/file target-filename))))
