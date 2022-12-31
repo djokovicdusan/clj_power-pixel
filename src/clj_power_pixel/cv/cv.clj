@@ -15,7 +15,7 @@
   [photo-path]
   (Highgui/imread photo-path))
 
-(defn get-metadata-from-photo-as-mat-object
+(defn get-metadata-from-mat
   [mat-object]
   (let [rows (.rows mat-object)
         cols (.cols mat-object)
@@ -25,8 +25,8 @@
 
 (defn dimensions-difference
   [first-mat-object second-mat-object]
-  (let [a-meta (get-metadata-from-photo-as-mat-object first-mat-object)
-        b-meta (get-metadata-from-photo-as-mat-object second-mat-object)]
+  (let [a-meta (get-metadata-from-mat first-mat-object)
+        b-meta (get-metadata-from-mat second-mat-object)]
     [(- (:cols a-meta) (:cols b-meta))
      (- (:rows a-meta) (:rows b-meta))]))
 
@@ -54,7 +54,8 @@
     (Imgproc/matchTemplate source template comparison-result-mat Imgproc/TM_CCOEFF_NORMED)
     comparison-result-mat))
 
-(defn get-similiraty-between-two-photos-in-percents [first-mat-object second-mat-object]
+(defn get-similiraty
+  [first-mat-object second-mat-object]
   (let [result-mat (match-template-wrapper first-mat-object second-mat-object)
         min-max (Core/minMaxLoc result-mat)
         highest-match-pixel-location (.maxLoc min-max)
@@ -67,14 +68,14 @@
 
 (defn horizontal-flip
   [mat-object]
-  (let [{:keys [rows cols type]} (get-metadata-from-photo-as-mat-object mat-object)
+  (let [{:keys [rows cols type]} (get-metadata-from-mat mat-object)
         result-mat (Mat. rows cols type)]
     (Core/flip mat-object result-mat 1)                     ;; third parametar is flipCode - which is 1 for hor. flip, 0 for vertical flip, see doc
     result-mat))
 
 (defn vertical-flip
   [mat-object]
-  (let [{:keys [rows cols type]} (get-metadata-from-photo-as-mat-object mat-object)
+  (let [{:keys [rows cols type]} (get-metadata-from-mat mat-object)
         result-mat (Mat. rows cols type)]
     (Core/flip mat-object result-mat 0)                     ;; third parametar is flipCode - which is 1 for hor. flip, 0 for vertical flip, see doc
     result-mat))
@@ -83,10 +84,10 @@
   [first-photo-path second-photo-path]
   (let [[source template] (find-if-comparable first-photo-path second-photo-path)]
     (if (and source template)
-      (let [match-result-original (get-similiraty-between-two-photos-in-percents source template)
+      (let [match-result-original (get-similiraty source template)
             a-match? (:match? match-result-original)
             match-result-flipped (when-not a-match?
-                                   (get-similiraty-between-two-photos-in-percents (horizontal-flip source) template))]
+                                   (get-similiraty (horizontal-flip source) template))]
         (if a-match?
           match-result-original
           (let [first-similiraty (:similarity match-result-original)

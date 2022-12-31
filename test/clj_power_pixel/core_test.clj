@@ -78,23 +78,23 @@
 
 
 (facts "test cv pixels destrucuring rows"
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2111.jpg"))) => 3456
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2162.jpg"))) => 3456
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2284.jpg"))) => 3456
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2298.jpg"))) => 3456
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2320.jpg"))) => 3456
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2329.jpg"))) => 3456
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2333.jpg"))) => 3456
-       (:rows (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2338.jpg"))) => 3456)
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2111.jpg"))) => 3456
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2162.jpg"))) => 3456
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2284.jpg"))) => 3456
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2298.jpg"))) => 3456
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2320.jpg"))) => 3456
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2329.jpg"))) => 3456
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2333.jpg"))) => 3456
+       (:rows (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2338.jpg"))) => 3456)
 (facts "test cv pixels destrucuring cols"
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2111.jpg"))) => 5184
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2162.jpg"))) => 5184
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2284.jpg"))) => 5184
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2298.jpg"))) => 5184
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2320.jpg"))) => 5184
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2329.jpg"))) => 5184
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2333.jpg"))) => 5184
-       (:cols (clj-power-pixel.cv.cv/get-metadata-from-photo-as-mat-object (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2338.jpg"))) => 5184)
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2111.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2162.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2284.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2298.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2320.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2329.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2333.jpg"))) => 5184
+       (:cols (clj-power-pixel.cv.cv/get-metadata-from-mat (clj-power-pixel.cv.cv/load-photo-as-mat-object "resources-test/photos/MS__2338.jpg"))) => 5184)
 
 (facts "test if comparable"
        (and (instance? org.opencv.core.Mat (get (clj-power-pixel.cv.cv/find-if-comparable "resources-test/photos/MS__2111.jpg" "resources/photos/MS__2111a.jpg") 0))
