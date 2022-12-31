@@ -3,6 +3,10 @@
 A simple project designed to classify photos by various metadata tags,
 as well as to use OpenCV library to detect plagiarism among photos.
 
+## User demo
+Check out [video1](https://fonbgacrs-my.sharepoint.com/:v:/g/personal/dd20223707_student_fon_bg_ac_rs/Ec649Mnt8N5MjVw6cFmAwYcBTNXC9FhRqn8b50WTCCl9wA?e=IpgXPR)
+and [video2](https://fonbgacrs-my.sharepoint.com/:v:/g/personal/dd20223707_student_fon_bg_ac_rs/EXkoRV4XTupBpCcyuAgNFX0B0l6EMjXT6UqSCJrWHPXvjQ?e=aecjGd) to have a quick overview over this tool.
+
 ## Why on Earth would you need this tool?
 
 First of all, I will tell you why I needed it so bad. Whenever I travel
