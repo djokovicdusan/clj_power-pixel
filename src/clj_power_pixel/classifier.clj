@@ -7,14 +7,16 @@
 (defn arrange-in-target-folder-by-artist
   [target-directory files]
   (let [filenames (map #(.getName %) files)
-        artist (map metadata/get-artist-from-photo files)]
-    (map #(str/join "/" [target-directory %1 %2]) artist filenames)))
+        artist (map metadata/get-artist-from-photo files)
+        prefix (map #((fnil str "_") %) artist)]
+    (map #(str/join "/" [target-directory %1 %2]) prefix filenames)))
 
 (defn arrange-in-target-folder-by-camera-model
   [target-directory files]
   (let [filenames (map #(.getName %) files)
-        camera-model (map metadata/get-camera-model-from-photo files)]
-    (map #(str/join "/" [target-directory %1 %2]) camera-model filenames)))
+        camera-model (map metadata/get-camera-model-from-photo files)
+        prefix (map #((fnil str "_") %) camera-model)]
+    (map #(str/join "/" [target-directory %1 %2]) prefix filenames)))
 
 (defn arrange-in-target-folder-by-caption
   [target-directory files]
